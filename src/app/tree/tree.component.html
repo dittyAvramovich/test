@@ -1,0 +1,19 @@
+<ul>
+  <li *ngFor="let node of nodes; trackBy: trackNode">
+    <ng-container *ngIf="node.files?.length>0">
+      <button class="folder-button" (click)="onFolderButtonClick(node)">
+        <label class="folder-button-label" *ngIf="!node.expand">+</label>
+        <label class="folder-button-label" *ngIf="node.expand">-</label>
+      </button>
+    </ng-container>
+
+
+    <label [ngClass]="{'item-name': !node.directories?.length }">{{node.name}}</label>
+    <ng-container *ngIf="node.files?.length>0&&node.expand">
+       <li *ngFor="let file of node.files" [ngClass]="{'item-name': node.files?.length }">
+         {{file}}
+       </li>
+  </ng-container>
+  <app-tree *ngIf="node.directories && node.expand" [nodes]="node.directories"></app-tree>
+  </li>
+</ul>
